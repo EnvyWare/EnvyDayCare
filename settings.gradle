@@ -16,3 +16,4 @@ plugins {
 
 rootProject.name = 'EnvyDayCare'
 include 'forge16'
+include 'forge20'
