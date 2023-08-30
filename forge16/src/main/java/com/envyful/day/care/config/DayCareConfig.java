@@ -4,7 +4,6 @@ import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.List;
