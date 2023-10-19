@@ -2,6 +2,7 @@ package com.envyful.day.care;
 
 import com.envyful.api.config.yaml.YamlConfigFactory;
 import com.envyful.api.forge.command.ForgeCommandFactory;
+import com.envyful.api.forge.command.parser.ForgeAnnotationCommandParser;
 import com.envyful.day.care.command.DayCareCommand;
 import com.envyful.day.care.config.DayCareConfig;
 import com.envyful.day.care.listener.PlayerLoginListener;
@@ -20,7 +21,7 @@ public class EnvyDayCare {
 
     private DayCareConfig config;
 
-    private ForgeCommandFactory commandFactory = new ForgeCommandFactory();
+    private ForgeCommandFactory commandFactory = new ForgeCommandFactory(ForgeAnnotationCommandParser::new, null);
 
     public EnvyDayCare() {
         instance = this;
@@ -36,7 +37,7 @@ public class EnvyDayCare {
 
     @SubscribeEvent
     public void onCommandRegister(RegisterCommandsEvent event) {
-        this.commandFactory.registerCommand(event.getDispatcher(), new DayCareCommand());
+        this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new DayCareCommand()));
     }
 
     public DayCareConfig getConfig() {

@@ -1,10 +1,8 @@
 package com.envyful.day.care.listener;
 
-import com.envyful.api.forge.concurrency.UtilForgeConcurrency;
 import com.envyful.api.forge.player.util.UtilPlayer;
 import com.envyful.day.care.EnvyDayCare;
 import com.envyful.day.care.config.DayCareConfig;
-import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import com.pixelmonmod.pixelmon.api.storage.breeding.PlayerDayCare;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,8 +20,7 @@ public class PlayerLoginListener {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        UtilForgeConcurrency.runLater(() -> {
-            PlayerPartyStorage party = StorageProxy.getParty((ServerPlayer) event.getEntity());
+        StorageProxy.getParty((ServerPlayer) event.getEntity()).whenComplete((party, throwable) -> {
             PlayerDayCare dayCare = party.getDayCare();
 
             for (DayCareConfig.Rank rank : this.mod.getConfig().getRanks()) {
@@ -31,6 +28,6 @@ public class PlayerLoginListener {
                     dayCare.setAllowedBoxes(rank.getNumberOfBoxes());
                 }
             }
-        }, 10);
+        });
     }
 }

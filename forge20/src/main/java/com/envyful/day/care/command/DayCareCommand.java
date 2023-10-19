@@ -1,18 +1,17 @@
 package com.envyful.day.care.command;
 
 import com.envyful.api.command.annotate.Command;
-import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.SubCommands;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.day.care.EnvyDayCare;
 import net.minecraft.commands.CommandSource;
 
 @Command(
-        value = "daycare",
-        description = "Root command",
-        aliases = {
+        value = {
+                "daycare",
                 "envydaycare"
         }
 )
