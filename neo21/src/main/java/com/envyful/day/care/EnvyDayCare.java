@@ -1,9 +1,12 @@
 package com.envyful.day.care;
 
 import com.envyful.api.config.yaml.YamlConfigFactory;
+import com.envyful.api.neoforge.chat.ComponentTextFormatter;
 import com.envyful.api.neoforge.command.ForgeCommandFactory;
 import com.envyful.api.neoforge.command.parser.ForgeAnnotationCommandParser;
+import com.envyful.api.neoforge.platform.ForgePlatformHandler;
 import com.envyful.api.neoforge.player.util.UtilPlayer;
+import com.envyful.api.platform.PlatformProxy;
 import com.envyful.day.care.command.DayCareCommand;
 import com.envyful.day.care.config.DayCareConfig;
 import com.envyful.day.care.listener.PlayerLoginListener;
@@ -25,6 +28,8 @@ public class EnvyDayCare {
     private ForgeCommandFactory commandFactory = new ForgeCommandFactory(ForgeAnnotationCommandParser::new, null);
 
     public EnvyDayCare() {
+        PlatformProxy.setTextFormatter(ComponentTextFormatter.getInstance());
+        PlatformProxy.setHandler(ForgePlatformHandler.getInstance());
         instance = this;
         NeoForge.EVENT_BUS.register(this);
     }
